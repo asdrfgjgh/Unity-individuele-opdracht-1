@@ -92,33 +92,38 @@ public class ApiClient : MonoBehaviour
 
         var response = await PerformApiCall("https://avansict2228255.azurewebsites.net/account/login", "POST", jsonData);
         warningText.text = "Email of wachtwoord is fout.";
+
         bool responseSuccess = response != null && response.Contains("token");
         if (responseSuccess)
         {
-            warningText.text = "Email of wachtwoord is juist.";
+            warningText.text = "Email en wachtwoord is juist.";
         }
     }
-
-        //var responseDto = JsonUtility.FromJson<PostLoginResponseDto>(response);
-        //if (responseDto != null)
-        //{
-        //    Debug.Log(responseDto.accessToken);
-    //        string userId = await GetUserId(responseDto.accessToken);
-
-    //        if (!string.IsNullOrEmpty(userId))
+    //        responseDto = JsonUtility.FromJson<PostLoginResponseDto>(response);
+    //        if (responseDto != null)
     //        {
-    //            SessionData.ownerUserId = userId; // Opslaan in SessionData
+    //            Debug.Log(responseDto.accessToken);
     //            SessionData.token = responseDto.accessToken; // Opslaan in SessionData
+    //            string userId = await GetUserId(responseDto.accessToken);
+
+    //            if (!string.IsNullOrEmpty(userId))
+    //            {
+    //                SessionData.ownerUserId = userId; // Opslaan in SessionData
+    //            }
+    //            else
+    //            {
+    //                Debug.LogError("Gefaald om User ID te krijgen");
+    //            }
+    //            Debug.Log(SessionData.ownerUserId);
     //        }
     //        else
     //        {
-    //            Debug.LogError("Gefaald om User ID te krijgen");
+    //            Debug.LogError("Gefaald om de respons te parsen");
     //        }
-    //        Debug.Log(SessionData.ownerUserId);
     //    }
     //    else
     //    {
-    //        Debug.LogError("Gefaald om de respons te parsen");
+    //        Debug.LogError("Login mislukt: " + response);
     //    }
     //    Debug.Log(response);
     //    Debug.Log(emailInput.text);

@@ -1,19 +1,30 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class SceneChanger : MonoBehaviour
 {
     public string sceneName;
+    private ApiClient apiClient;
 
+    private void Start()
+    {
+        apiClient = ApiClient.instance;
+    }
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene(sceneName);
+        if (IsUserLoggedIn())
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.LogError("Je bent niet ingelogd");
+        }
     }
-    public void ExitApplication()
+
+    private bool IsUserLoggedIn()
     {
-        Application.Quit();
+        return apiClient != null && apiClient.responseDto != null && !string.IsNullOrEmpty(apiClient.responseDto.accessToken);
     }
 }
