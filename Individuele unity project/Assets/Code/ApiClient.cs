@@ -97,49 +97,50 @@ public class ApiClient : MonoBehaviour
         {
             warningText.text = "Email of wachtwoord is juist.";
         }
-
-        var responseDto = JsonUtility.FromJson<PostLoginResponseDto>(response);
-        if (responseDto != null)
-        {
-            Debug.Log(responseDto.accessToken);
-            string userId = await GetUserId(responseDto.accessToken);
-
-            if (!string.IsNullOrEmpty(userId))
-            {
-                SessionData.ownerUserId = userId; // Opslaan in SessionData
-                SessionData.token = responseDto.accessToken; // Opslaan in SessionData
-            }
-            else
-            {
-                Debug.LogError("Gefaald om User ID te krijgen");
-            }
-            Debug.Log(SessionData.ownerUserId);
-        }
-        else
-        {
-            Debug.LogError("Gefaald om de respons te parsen");
-        }
-        Debug.Log(response);
-        Debug.Log(emailInput.text);
-        Debug.Log(passwordInput.text);
     }
 
-    public async Task<string> GetUserId(string token)
-    {
-        var response = await PerformApiCall("https://avansict2228256.azurewebsites.net/wereldbouwer/GetUserId", "GET", null, token);
+        //var responseDto = JsonUtility.FromJson<PostLoginResponseDto>(response);
+        //if (responseDto != null)
+        //{
+        //    Debug.Log(responseDto.accessToken);
+    //        string userId = await GetUserId(responseDto.accessToken);
 
-        if (!string.IsNullOrEmpty(response))
-        {
-            // Assuming the response is a plain string containing the userId
-            return response;
-        }
-        else
-        {
-            Debug.LogError("Empty response from GetUserId API");
-        }
+    //        if (!string.IsNullOrEmpty(userId))
+    //        {
+    //            SessionData.ownerUserId = userId; // Opslaan in SessionData
+    //            SessionData.token = responseDto.accessToken; // Opslaan in SessionData
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError("Gefaald om User ID te krijgen");
+    //        }
+    //        Debug.Log(SessionData.ownerUserId);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Gefaald om de respons te parsen");
+    //    }
+    //    Debug.Log(response);
+    //    Debug.Log(emailInput.text);
+    //    Debug.Log(passwordInput.text);
+    //}
 
-        return null;
-    }
+    //public async Task<string> GetUserId(string token)
+    //{
+    //    var response = await PerformApiCall("https://avansict2228255.azurewebsites.net/wereldbouwer/GetUserId", "GET", null, token);
+
+    //    if (!string.IsNullOrEmpty(response))
+    //    {
+    //        // Assuming the response is a plain string containing the userId
+    //        return response;
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Empty response from GetUserId API");
+    //    }
+
+    //    return null;
+    //}
 
 
     public async Task<bool> WachtwoordValidatieAsync(string wachtwoord)
