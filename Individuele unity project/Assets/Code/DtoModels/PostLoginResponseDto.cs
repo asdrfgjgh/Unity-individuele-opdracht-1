@@ -2,5 +2,8 @@ using UnityEngine;
 
 public class PostLoginResponseDto
 {
-    public string token;
+    public string tokenType;
+    public string accessToken;
+    public int expiresIn;
+    public string refreshToken;
 }
