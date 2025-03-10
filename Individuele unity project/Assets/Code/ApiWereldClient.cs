@@ -7,6 +7,7 @@ using TMPro;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
 
 public class ApiWereldClient : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class ApiWereldClient : MonoBehaviour
     public GameObject wereldPrefab; // Reference to the prefab
     public RectTransform wereldContainer; // Reference to the container\
     public Button createWereld; // Reference to the create button
+    public string sceneName;
     public static ApiWereldClient instance { get; private set; }
     void Awake()
     {
@@ -162,6 +164,7 @@ public class ApiWereldClient : MonoBehaviour
     {
         SessionData.worldId = worldId;
         Debug.Log($"Loading world with ID: {SessionData.worldId}");
+        SceneManager.LoadScene(sceneName);
         // Implement the logic to load the specific world
     }
 }

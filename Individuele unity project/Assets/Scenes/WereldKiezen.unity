@@ -368,6 +368,7 @@ MonoBehaviour:
   wereldPrefab: {fileID: 305761271641794829, guid: 42cb53fe6a828d243b3b691c316721d3, type: 3}
   wereldContainer: {fileID: 1152535692}
   createWereld: {fileID: 3599049464992028887}
+  sceneName: Wereldbouwer
 --- !u!4 &515769314
 Transform:
   m_ObjectHideFlags: 0
