@@ -1874,7 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c485d7a90f4b414db1ac04c18047df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Wereldbouwer
+  sceneName: WereldKiezen
 --- !u!4 &573226745
 Transform:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class ApiWereldClient : MonoBehaviour
     public TMP_InputField naamInput;
     public TMP_Text naamText;
     public GameObject wereldPrefab; // Reference to the prefab
-    public RectTransform worldContainer; // Reference to the container\
+    public RectTransform wereldContainer; // Reference to the container\
     public Button wereldLaden; // Reference to the create button
     public static ApiWereldClient instance { get; private set; }
     void Awake()
@@ -73,7 +73,7 @@ public class ApiWereldClient : MonoBehaviour
                 maxHeight = 200
             };
             string jsonData = JsonUtility.ToJson(registerDto);
-            var response = await PerformApiCall("https://avansict2228256.azurewebsites.net/wereldbouwer", "POST", jsonData, SessionData.token);
+            var response = await PerformApiCall("https://avansict2228255.azurewebsites.net/WebApi", "POST", jsonData, SessionData.token);
             Debug.Log(response);
         }
         else
@@ -89,7 +89,7 @@ public class ApiWereldClient : MonoBehaviour
     {
         if (SessionData.token != null)
         {
-            string url = $"https://avansict2228256.azurewebsites.net/wereldbouwer/getwereld/{SessionData.ownerUserId}";
+            string url = $"https://avansict2228255.azurewebsites.net/WebApi/getwereld/{SessionData.ownerUserId}";
             var response = await PerformApiCall(url, "GET", null, SessionData.token);
 
             if (response == null)
@@ -135,7 +135,7 @@ public class ApiWereldClient : MonoBehaviour
 
     private void CreateWorldPrefab(PostWereldLoadResponseDto world)
     {
-        GameObject worldObject = Instantiate(wereldPrefab, worldContainer);
+        GameObject worldObject = Instantiate(wereldPrefab, wereldContainer);
         TMP_InputField inputField = worldObject.transform.Find("InputName").GetComponent<TMP_InputField>();
         TMP_Text nameText = worldObject.transform.Find("WorldName").GetComponent<TMP_Text>();
         Button loadButton = worldObject.transform.Find("Load World").GetComponent<Button>();
@@ -151,7 +151,7 @@ public class ApiWereldClient : MonoBehaviour
 
     private void CreateEmptyWorldPrefab()
     {
-        GameObject worldObject = Instantiate(wereldPrefab, worldContainer);
+        GameObject worldObject = Instantiate(wereldPrefab, wereldContainer);
         TMP_InputField inputField = worldObject.transform.Find("InputName").GetComponent<TMP_InputField>();
         TMP_Text nameText = worldObject.transform.Find("WorldName").GetComponent<TMP_Text>();
         Button createButton = worldObject.transform.Find("Create World").GetComponent<Button>();

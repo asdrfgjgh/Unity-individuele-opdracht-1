@@ -132,7 +132,7 @@ Debug.Log(passwordInput.text);
 
     public async Task<string> GetUserId(string token)
 {
-    var response = await PerformApiCall("https://avansict2228255.azurewebsites.net/wereldbouwer/GetUserId", "GET", null, token);
+    var response = await PerformApiCall("https://avansict2228255.azurewebsites.net/WebApi/GetUserId", "GET", null, token);
 
     if (!string.IsNullOrEmpty(response))
     {
