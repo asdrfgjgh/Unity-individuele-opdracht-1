@@ -10,7 +10,10 @@ public class SceneChanger : MonoBehaviour
     {
         apiClient = ApiClient.instance;
     }
-
+    public void AnoniemSceneChange()
+    {
+        SceneManager.LoadScene(sceneName);
+    }
     public void ChangeScene()
     {
         if (IsUserLoggedIn())
