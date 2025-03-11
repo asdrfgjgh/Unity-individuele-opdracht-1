@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Instantiated
   layers:
   - Default
   - TransparentFX
@@ -43,6 +44,9 @@ TagManager:
     locked: 0
   - name: New Layer 1
     uniqueID: 4074407631
+    locked: 0
+  - name: Prefabs
+    uniqueID: 1744028109
     locked: 0
   m_RenderingLayers:
   - Default

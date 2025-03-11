@@ -18,6 +18,7 @@ public class ApiWereldClient : MonoBehaviour
     public RectTransform wereldContainer; // Reference to the container\
     public Button createWereld; // Reference to the create button
     public string sceneName;
+    public TMP_Text wereldNaamError;
     public static ApiWereldClient instance { get; private set; }
     void Awake()
     {
@@ -64,10 +65,41 @@ public class ApiWereldClient : MonoBehaviour
             }
         }
     }
+
+    private async Task<List<PostWereldLoadResponseDto>> GetExistingWorlds()
+    {
+        string url = $"https://avansict2228255.azurewebsites.net/WebApi/getwereld/{SessionData.ownerUserId}";
+        var response = await PerformApiCall(url, "GET", null, SessionData.token);
+
+        if (response != null)
+        {
+            return JsonConvert.DeserializeObject<List<PostWereldLoadResponseDto>>(response);
+        }
+        else
+        {
+            Debug.LogError("Failed to load existing worlds.");
+            return new List<PostWereldLoadResponseDto>();
+        }
+    }
     public async void RegisterWorld(WereldPrefabController controller)
     {
-        Debug.Log($"naamInput: {naamInput}");
 
+        string wereldNaam = controller.naamInput.text;
+
+        if (string.IsNullOrEmpty(wereldNaam) || wereldNaam.Length < 1 || wereldNaam.Length > 25)
+        {
+            Debug.LogError("De wereldnaam moet minimaal 1 en maximaal 25 karakters lang zijn");
+            wereldNaamError.text = "De wereldnaam moet minimaal 1 en maximaal 25 karakters lang zijn";
+            return;
+        }
+        var existingWorlds = await GetExistingWorlds();
+        if (existingWorlds.Exists(w => w.name.Equals(wereldNaam, StringComparison.OrdinalIgnoreCase)))
+        {
+            Debug.LogError("Een wereld met deze naam bestaat al.");
+            wereldNaamError.text = "Een wereld met deze naam bestaat al.";
+            return;
+        }
+        Debug.Log($"naamInput: {naamInput}");
 
         if (SessionData.token != null)
         {
@@ -167,4 +199,28 @@ public class ApiWereldClient : MonoBehaviour
         SceneManager.LoadScene(sceneName);
         // Implement the logic to load the specific world
     }
+    public async void DeleteSpecificWorld(string worldId)
+    {
+        if (SessionData.token != null)
+        {
+            string url = $"https://avansict2228255.azurewebsites.net/WebApi/{worldId}";
+            var response = await PerformApiCall(url, "DELETE", null, SessionData.token);
+
+            if (response != null)
+            {
+                Debug.Log($"Wereld met ID {worldId} verwijderd: {response}");
+                // Hier kun je eventueel de UI updaten of andere acties uitvoeren na het verwijderen
+                LoadWorld(); // Herlaad de wereldlijst na het verwijderen
+            }
+            else
+            {
+                Debug.LogError($"Fout bij het verwijderen van wereld met ID {worldId}");
+            }
+        }
+        else
+        {
+            Debug.LogError("SessionData token is null");
+        }
+    }
 }
+

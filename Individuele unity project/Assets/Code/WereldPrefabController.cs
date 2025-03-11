@@ -9,7 +9,7 @@ public class WereldPrefabController : MonoBehaviour
     public TMP_Text worldName;
     public Button loadWorldButton;
     public Button createWorldButton;
-    //public Button deleteWorldButton;
+    public Button deleteWorldButton;
 
     public void Initialize(ApiWereldClient manager, PostWereldLoadResponseDto world = null)
     {
@@ -22,7 +22,7 @@ public class WereldPrefabController : MonoBehaviour
 
             // Stel de onClick listener in voor de Load World button
             loadWorldButton.onClick.AddListener(() => apiManager.LoadSpecificWorld(world.id));
-            //deleteWorldButton.onClick.AddListener(() => apiManager.DeleteSpecificWorld(world.id));
+            deleteWorldButton.onClick.AddListener(() => apiManager.DeleteSpecificWorld(world.id));
 
             createWorldButton.gameObject.SetActive(false);
             naamInput.gameObject.SetActive(false);
@@ -37,7 +37,7 @@ public class WereldPrefabController : MonoBehaviour
 
             loadWorldButton.gameObject.SetActive(false);
             createWorldButton.gameObject.SetActive(true);
-            //deleteWorldButton.gameObject.SetActive(false);
+            deleteWorldButton.gameObject.SetActive(false);
         }
     }
 

@@ -9,7 +9,7 @@ public class MenuPanel : MonoBehaviour
 
     public List<GameObject> prefabs;
 
-    private List<GameObject> items = new List<GameObject>();
+    public static List<GameObject> items = new List<GameObject>();
 
     public void CreateGameObjectFromClick(int prefabIndex)
     {
@@ -18,6 +18,8 @@ public class MenuPanel : MonoBehaviour
 
         daWell.isDragging = true;
         daWell.menuPanel = this;
+
+        well.tag = "Instantiated";
 
         HideMenu(false);
         items.Add(well);
@@ -33,7 +35,7 @@ public class MenuPanel : MonoBehaviour
         foreach (var well in items)
         {
             Destroy(well);
-            Debug.Log("Destroying items");
+            Debug.Log("Removing items");
         }
     }
 
