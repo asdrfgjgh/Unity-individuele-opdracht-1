@@ -15,14 +15,14 @@ public class ApiWorldLoaderClient : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        //if (instance != null && instance != this)
+        //{
+        //    Destroy(gameObject);
+        //}
+        //else
+        //{
+        //    instance = this;
+        //}
         DontDestroyOnLoad(this);
     }
 
@@ -179,8 +179,9 @@ public class ApiWorldLoaderClient : MonoBehaviour
                                 DragDrop dragDrop = instantiatedObject.GetComponent<DragDrop>();
                                 if (dragDrop != null)
                                 {
-                                    dragDrop.menuPanel = GameObject.Find("MenuPanel").GetComponent<MenuPanel>(); // Zoek het MenuPanel component op LeftPanel
+                                    dragDrop.menuPanel = GameObject.Find("MenuPanel").GetComponent<MenuPanel>(); // Zoek het MenuPanel component op
                                 }
+                                Debug.Log($"Prefab {prefab.name} is ingeladen");
                             }
                             else
                             {
@@ -214,7 +215,7 @@ public class ApiWorldLoaderClient : MonoBehaviour
         }
 
         string url = $"https://avansict2228255.azurewebsites.net/Object2D/environment/{SessionData.worldId}";
-        string response = await PerformApiCall(url, "Delete", null, SessionData.token);
+        string response = await PerformApiCall(url, "DELETE", null, SessionData.token);
 
         Debug.Log(response);
     }

@@ -12,6 +12,7 @@ public class ApiClient : MonoBehaviour
     public TMP_InputField passwordInput;
     public TMP_Text errorText;
     public TMP_Text warningText;
+    public TMP_Text foutEmail;
 
     public static ApiClient instance { get; private set; }
     public PostLoginResponseDto responseDto { get; private set; }
@@ -33,6 +34,7 @@ public class ApiClient : MonoBehaviour
     {
         using (UnityWebRequest request = new UnityWebRequest(url, method))
         {
+            foutEmail.text = "";
             if (!string.IsNullOrEmpty(jsonData))
             {
                 byte[] jsonToSend = Encoding.UTF8.GetBytes(jsonData);
@@ -55,6 +57,7 @@ public class ApiClient : MonoBehaviour
             else
             {
                 Debug.LogError("Fout bij API-aanroep: " + request.error);
+                foutEmail.text = "Email bestaat al.";
                 return null;
             }
         }
