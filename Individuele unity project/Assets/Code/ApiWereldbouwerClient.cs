@@ -15,15 +15,15 @@ public class ApiWorldLoaderClient : MonoBehaviour
 
     void Awake()
     {
-        //if (instance != null && instance != this)
-        //{
-        //    Destroy(gameObject);
-        //}
-        //else
-        //{
-        //    instance = this;
-        //}
-        DontDestroyOnLoad(this);
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+        //DontDestroyOnLoad(this);
     }
 
     private async Task<string> PerformApiCall(string url, string method, string jsonData = null, string token = null)
