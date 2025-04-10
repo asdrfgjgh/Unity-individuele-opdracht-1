@@ -19,6 +19,7 @@ public class ApiWereldClient : MonoBehaviour
     public Button createWereld; // Reference to the create button
     public string sceneName;
     public TMP_Text wereldNaamError;
+    public TMP_Text wereldVerwijderen;
     public static ApiWereldClient instance { get; private set; }
     void Awake()
     {
@@ -215,6 +216,7 @@ public class ApiWereldClient : MonoBehaviour
             else
             {
                 Debug.LogError($"Fout bij het verwijderen van wereld met ID {worldId}");
+                wereldVerwijderen.text = "Verwijderen mislukt, delete de save in de wereld eerst";
             }
         }
         else
