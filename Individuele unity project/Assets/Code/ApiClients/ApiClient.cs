@@ -94,12 +94,12 @@ public class ApiClient : MonoBehaviour
         string jsonData = JsonUtility.ToJson(loginDto);
 
         var response = await PerformApiCall("https://avansict2228255.azurewebsites.net/account/login", "POST", jsonData);
-        warningText.text = "Email of wachtwoord is fout.";
+        warningText.text = "Email of Wachtwoord is fout.";
 
         bool responseSuccess = response != null && response.Contains("token");
         if (responseSuccess)
         {
-            warningText.text = "Email en wachtwoord is juist.";
+            warningText.text = "Email en Wachtwoord is juist.";
         
     
     responseDto = JsonUtility.FromJson<PostLoginResponseDto>(response);
@@ -151,36 +151,44 @@ Debug.Log(passwordInput.text);
 }
 
 
-public async Task<bool> WachtwoordValidatieAsync(string wachtwoord)
+    public async Task<bool> WachtwoordValidatieAsync(string wachtwoord)
     {
         errorText.text = "";
         string password = wachtwoord;
+        bool isValid = true;
+        StringBuilder errorMessages = new StringBuilder();
+
         if (password.Length < 10)
         {
-            errorText.text = "Wachtwoord moet minimaal 10 karakters lang zijn.";
+            errorMessages.AppendLine("Wachtwoord moet minimaal 10 karakters lang zijn.");
+            isValid = false;
         }
 
         if (!Regex.IsMatch(password, "[A-Z]"))
         {
-            errorText.text = "Wachtwoord moet minstens 1 hoofdletter bevatten.";
+            errorMessages.AppendLine("Wachtwoord moet minstens 1 hoofdletter bevatten.");
+            isValid = false;
         }
 
         if (!Regex.IsMatch(password, "[a-z]"))
         {
-            errorText.text = "Wachtwoord moet minstens 1 kleine letter bevatten.";
+            errorMessages.AppendLine("Wachtwoord moet minstens 1 kleine letter bevatten.");
+            isValid = false;
         }
 
         if (!Regex.IsMatch(password, "[0-9]"))
         {
-            errorText.text = "Wachtwoord moet minstens 1 cijfer bevatten.";
+            errorMessages.AppendLine("Wachtwoord moet minstens 1 cijfer bevatten.");
+            isValid = false;
         }
 
         if (!Regex.IsMatch(password, "[^a-zA-Z0-9]"))
         {
-            errorText.text = "Wachtwoord moet minstens 1 niet-alfanumeriek teken bevatten.";
+            errorMessages.AppendLine("Wachtwoord moet minstens 1 niet-alfanumeriek teken bevatten.");
+            isValid = false;
         }
 
-        // Wachtwoord is geldig
-        return true;
+        errorText.text = errorMessages.ToString();
+        return isValid;
     }
 }
